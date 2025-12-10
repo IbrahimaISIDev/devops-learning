@@ -77,7 +77,7 @@ Ce projet vous permet de comprendre :
 
 ## 👨‍💻 Auteur
 
-Ibrahima Dev - Parcours DevOps 2024
+Ibrahima Dev - Parcours DevOps 2025
 
 ## 📝 Licence
 
