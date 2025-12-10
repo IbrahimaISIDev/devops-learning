@@ -1,0 +1,33 @@
+# ================================
+# Dockerfile Version 1 : BASIQUE
+# ================================
+# Cette version fonctionne mais n'est pas optimisée
+
+# Étape 1 : Partir d'une image de base avec Node.js
+# node:18-alpine = Node.js 18 sur Alpine Linux (très léger, ~40MB)
+FROM node:18-alpine
+
+# Étape 2 : Définir le répertoire de travail dans le conteneur
+# Tous les fichiers seront copiés ici
+WORKDIR /app
+
+# Étape 3 : Copier TOUS les fichiers du projet
+# Le "." signifie "tout dans le dossier actuel"
+COPY . .
+
+# Étape 4 : Installer les dépendances
+# Cela va lire package.json et installer ce qui est dedans
+RUN npm install
+
+# Étape 5 : Exposer le port 3000
+# C'est documentatif : dit "cette app utilise le port 3000"
+EXPOSE 3000
+
+# Étape 6 : Commande à exécuter au démarrage du conteneur
+# CMD doit être un array JSON
+CMD ["npm", "start"]
+
+# ⚠️ PROBLÈME avec cette version :
+# Si on modifie juste le code (pas package.json),
+# Docker va quand même réinstaller TOUTES les dépendances
+# car on copie tout AVANT de faire npm install
