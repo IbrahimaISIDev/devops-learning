@@ -50,6 +50,15 @@ app.get("/info", (req, res) => {
   });
 });
 
+// Route pour obtenir la version
+app.get("/version", (req, res) => {
+  res.json({
+    version: VERSION,
+    name: "hello-devops",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Route pour tester les erreurs (important pour les tests)
 app.get("/error", (req, res) => {
   res.status(500).json({

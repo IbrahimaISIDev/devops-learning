@@ -61,3 +61,14 @@ describe("API Hello DevOps - Tests", () => {
     });
   });
 });
+
+//Ajoute ce test à la fin du fichier (avant le dernier });) :
+describe("GET /version", () => {
+  it("devrait retourner le numéro de version", async () => {
+    const response = await request(app).get("/version");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("version");
+    expect(response.body.version).toBe("1.0.0");
+  });
+});
