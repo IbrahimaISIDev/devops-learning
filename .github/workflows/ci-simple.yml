@@ -1,0 +1,45 @@
+# ================================
+# CI/CD Pipeline - VERSION SIMPLE
+# ================================
+# Version simplifiée pour débuter - Sans Docker Hub
+
+# Nom du workflow (apparaît dans l'UI GitHub)
+name: CI Simple
+
+# Déclencheurs
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Les jobs
+jobs:
+  test-and-build:
+    name: 🧪 Test & Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+      
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: 📦 Install dependencies
+        run: npm ci
+      
+      - name: ✅ Run tests
+        run: npm test
+      
+      - name: 🐳 Build Docker image
+        run: docker build -t hello-devops:${{ github.sha }} .
+      
+      - name: 🎉 Success
+        run: |
+          echo "✅ Tests passés avec succès !"
+          echo "✅ Image Docker buildée avec succès !"
+          echo "📦 Tag: hello-devops:${{ github.sha }}"
