@@ -7,7 +7,7 @@ describe("API Hello DevOps - Tests", () => {
     it("devrait retourner un message de bienvenue", async () => {
       const response = await request(app).get("/");
 
-      expect(response.status).toBe(404); // Adjusted to match the updated code
+      expect(response.status).toBe(200);
       expect(response.body).toHaveProperty("message");
       expect(response.body.message).toContain("Hello DevOps");
       expect(response.body).toHaveProperty("version");
