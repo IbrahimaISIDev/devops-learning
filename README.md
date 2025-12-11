@@ -1,3 +1,5 @@
+![CI Status](https://github.com/IbrahimaISIDev/devops-learning/workflows/CI%20Simple/badge.svg)
+
 # 🚀 Hello DevOps
 
 Une API REST simple pour apprendre et pratiquer le DevOps de A à Z.
