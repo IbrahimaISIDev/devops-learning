@@ -1,9 +1,13 @@
 # Dependencies
 node_modules/
-# package-lock.json
+package-lock.json
 
 # Tests
 coverage/
+*.log
+
+# Logs
+logs/
 *.log
 
 # Environment

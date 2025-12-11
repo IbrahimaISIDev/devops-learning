@@ -1,0 +1,39 @@
+# ================================
+# Configuration Prometheus
+# ================================
+# Définit comment Prometheus collecte les métriques
+
+global:
+  scrape_interval: 15s      # Collecte toutes les 15 secondes
+  evaluation_interval: 15s  # Évalue les règles toutes les 15 secondes
+  
+  external_labels:
+    monitor: 'hello-devops-monitor'
+    environment: 'production'
+
+# ============================================
+# JOBS DE SCRAPING (Collecte des métriques)
+# ============================================
+scrape_configs:
+  # Job 1 : Prometheus lui-même (auto-monitoring)
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  
+  # Job 2 : Notre application Node.js
+  - job_name: 'hello-devops-app'
+    scrape_interval: 5s      # Plus fréquent pour notre app
+    static_configs:
+      - targets: ['app:3000']  # 'app' = nom du service dans docker-compose
+        labels:
+          service: 'hello-devops'
+          version: '1.0.0'
+    
+    # Configuration du endpoint metrics
+    metrics_path: '/metrics'
+    
+    # Health check de la cible
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'hello-devops-app'
